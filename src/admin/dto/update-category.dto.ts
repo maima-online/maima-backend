@@ -7,7 +7,7 @@ export class UpdateCategoryDto {
 
     @IsOptional()
     name: string;
-
+    
     @IsOptional()
     subtitle: string;
 }
