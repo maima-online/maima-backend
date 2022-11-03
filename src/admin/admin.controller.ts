@@ -29,7 +29,7 @@ import { AdminService } from './admin.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { CreateCategoryDto } from './dto/createCategory.dto';
 import { CreateSubCategoryDto } from './dto/createSubCategory.dto';
-import { UpdateSubCategoryDto } from './dto/update-subCategory.dto';
+import { UpdateSubCategoryDto } from './dto/updateSubCategory.dto';
 import { CreateProductDto } from './dto/createProduct.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { CreateConditionDto } from './dto/createCondition.dto';
