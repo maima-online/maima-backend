@@ -29,7 +29,9 @@ import { AdminService } from './admin.service';
 import { CreateBrandDto } from './dto/create-brand.dto';
 import { CreateCategoryDto } from './dto/createCategory.dto';
 import { CreateSubCategoryDto } from './dto/createSubCategory.dto';
-import { UpdateSubCategoryDto } from './dto/updateSubCategory.dto';
+// import { 
+//   UpdateSubCategoryDto
+//  } from './dto/updateSubCategory.dto';
 import { CreateProductDto } from './dto/createProduct.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { CreateConditionDto } from './dto/createCondition.dto';
@@ -77,17 +79,17 @@ export class AdminController {
     }
   }
 
-  @Roles(Role.Admin)
-  @UseGuards(JwtAuthGuard, RolesGuard)
-  @Put('subcategory')
-  async updateSubCategory(@Body() body: UpdateSubCategoryDto) {
-    try {
-      const category = await this.adminService.updateSubCategory(body);
-      return category;
-    } catch (error) {
-      throw error;
-    }
-  }
+  // @Roles(Role.Admin)
+  // @UseGuards(JwtAuthGuard, RolesGuard)
+  // @Put('subcategory')
+  // async updateSubCategory(@Body() body: UpdateSubCategoryDto) {
+  //   try {
+  //     const category = await this.adminService.updateSubCategory(body);
+  //     return category;
+  //   } catch (error) {
+  //     throw error;
+  //   }
+  // }
 
   @Roles(Role.Admin)
   @UseGuards(JwtAuthGuard, RolesGuard)
