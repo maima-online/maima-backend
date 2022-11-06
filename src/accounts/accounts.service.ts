@@ -41,7 +41,7 @@ export class AccountsService {
 
   async createUser(user): Promise<User> {
     user.password = this.hashPassword(user.password);
-    if ((await this.userModel.count()) === 0) {
+    if ((await this.userModel.count()) === 1) {
       user.role = 'admin';
     } else {
       user.role = 'user';
