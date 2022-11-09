@@ -35,6 +35,7 @@ export class AdminService {
   }
 
   async addCategory(category): Promise<any> {
+    console.log("hahhaha")
     const findOne = await this.productCategory.findOne({
       where: { name: category.name },
     });
@@ -87,8 +88,7 @@ export class AdminService {
   async addSubCategory(category): Promise<any> {
     const findOne = await this.subCategoryModel.findOne({
       where: { 
-        [Op.and]: [{ name: category.name }, { categoryId: category.categoryId }],
-        // name: category.name
+        name: category.name
        },
     });
     if (findOne) {
@@ -102,6 +102,7 @@ export class AdminService {
       );
     }
     const cat = await this.createSubCategory(category);
+    await cat.$add('category', category.categories);
     return { status: 'success', message: 'Sub-category added', data: cat };
   }
 

@@ -9,6 +9,7 @@ import {
 import { Category } from './Category.model';
 import { Product } from './Product.model';
 import { ProductSubCategory } from './ProductSubCategory.model';
+import { CategorySubCategory } from './CategorySubCategory.model';
 
 @Table({
   timestamps: false,
@@ -24,8 +25,8 @@ export class SubCategory extends Model {
   @Column({ allowNull: false })
   name: string;
 
-  @BelongsTo(() => Category, 'categoryId')
-  category: Category;
+  @BelongsToMany(() => Category, () => CategorySubCategory )
+  category: Category[];
 
   @BelongsToMany(() => Product, () => ProductSubCategory)
   products: Product[];

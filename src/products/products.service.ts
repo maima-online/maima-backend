@@ -6,6 +6,7 @@ import { Category } from './models/Category.model';
 import { Product } from './models/Product.model';
 import { Condition } from './models/Condition.model';
 import { SubCategory } from './models/SubCategory.model';
+import { CategorySubCategory } from './models/CategorySubCategory.model';
 
 
 @Injectable()
@@ -28,12 +29,17 @@ export class ProductsService {
 
   async getCategories(): Promise<Category[]>{
     return  await this.category.findAll({
-      // include: [SubCategory],
+      include: {
+        model: SubCategory,
+        through: {
+          attributes: []
+        }
+      }
     });
   }
 
   async getSubCategories(): Promise<SubCategory[]>{
-    return  await this.subcategory.findAll({ include: [{ all: true }] });
+    return  await this.subcategory.findAll({ });
   }
 
   async getBrands(): Promise<Brand[]>{

@@ -58,7 +58,7 @@ export class Product extends Model {
   images: string[];
 
   @BelongsToMany(() => SubCategory, () => ProductSubCategory)
-  categories: SubCategory[];
+  subCategories: SubCategory[];
 
   @BelongsToMany(() => Condition, () => ProductCondition)
   conditions: Condition[];

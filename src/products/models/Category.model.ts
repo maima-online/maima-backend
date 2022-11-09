@@ -5,8 +5,8 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-// import { Product } from './Product.model';
-// import { ProductSubCategory } from './ProductSubCategory.model';
+import { SubCategory } from './SubCategory.model';
+import { CategorySubCategory } from './CategorySubCategory.model';
 
 @Table({
   timestamps: false
@@ -26,6 +26,6 @@ export class Category extends Model {
   @Column
   subtitle: string;
 
-  // @BelongsToMany(() => Product, () => ProductCategory)
-  // products: Product[];
+  @BelongsToMany(() => SubCategory, () => CategorySubCategory)
+  subCategory: SubCategory[];
 }

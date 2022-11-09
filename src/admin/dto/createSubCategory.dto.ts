@@ -6,5 +6,5 @@ export class CreateSubCategoryDto {
 
   @IsNotEmpty()
   @IsUUID()
-  categoryId: string;
+  categories: string | string[];
 }
