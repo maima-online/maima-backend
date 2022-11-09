@@ -75,7 +75,7 @@ export class AccountsService {
         HttpStatus.FORBIDDEN,
       );
     }
-    const user = await this.createUser(body);
+    await this.createUser(body);
     return {
       status: 'success',
       message: 'Signup is successful, you can now login',
@@ -83,11 +83,11 @@ export class AccountsService {
   }
 
   async login(user: any) {
-    // console.log(user)
+    const { email, id, roles, phone, firstName, lastName, role, folioNumber, isVerified} =  user
     const payload = { email: user.email, sub: user.id, roles: [user.role] };
     return {
       accessToken: this.jwtService.sign(payload),
-      ...user,
+      email, id, roles, phone, firstName, lastName, role, folioNumber, isVerified
     };
   }
 

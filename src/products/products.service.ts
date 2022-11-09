@@ -27,7 +27,9 @@ export class ProductsService {
   }
 
   async getCategories(): Promise<Category[]>{
-    return  await this.category.findAll();
+    return  await this.category.findAll({
+      include: [SubCategory],
+    });
   }
 
   async getSubCategories(): Promise<SubCategory[]>{
