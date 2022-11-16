@@ -84,14 +84,20 @@ export class AdminService {
   }
   async createSubCategory(category): Promise<SubCategory[]> {
     console.log(category);
-    return await this.subCategoryModel.bulkCreate(category?.names,   {
+    return await this.subCategoryModel.bulkCreate(category,   {
       ignoreDuplicates: true,
+      // updateOnDuplicate: ["name"],
       validate: true
     });
   }
   async addSubCategory(category): Promise<any> {
-    console.log(category);
-    for (const object of category?.names){
+    function removeDuplicates(array = []) {
+      let uniq = {};
+      return array.filter(obj => !uniq[obj.name] && (uniq[obj.name] = true))
+    }
+    const arr = removeDuplicates(category?.names);
+
+    for (const object of arr){
     const findOne = await this.subCategoryModel.findOne({
       where: { 
         name: object.name
@@ -108,7 +114,7 @@ export class AdminService {
       );
     }
   }
-    const cat = await this.createSubCategory(category);
+    const cat = await this.createSubCategory(arr);
     for (const song of cat) {
       await song.$add('category', category.categories);
     }
