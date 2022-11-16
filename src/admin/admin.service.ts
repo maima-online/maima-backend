@@ -82,13 +82,19 @@ export class AdminService {
   async getSubCategories(): Promise<Category[]> {
     return await this.productCategory.findAll();
   }
-  async createSubCategory(category): Promise<SubCategory> {
-    return await this.subCategoryModel.create(category);
+  async createSubCategory(category): Promise<SubCategory[]> {
+    console.log(category);
+    return await this.subCategoryModel.bulkCreate(category?.names,   {
+      ignoreDuplicates: true,
+      validate: true
+    });
   }
   async addSubCategory(category): Promise<any> {
+    console.log(category);
+    for (const object of category?.names){
     const findOne = await this.subCategoryModel.findOne({
       where: { 
-        name: category.name
+        name: object.name
        },
     });
     if (findOne) {
@@ -96,13 +102,16 @@ export class AdminService {
       throw new HttpException(
         {
           status: 'error',
-          error: 'Sub-Category already exists',
+          error: `${object.name} already exists`,
         },
         HttpStatus.FORBIDDEN,
       );
     }
+  }
     const cat = await this.createSubCategory(category);
-    await cat.$add('category', category.categories);
+    for (const song of cat) {
+      await song.$add('category', category.categories);
+    }
     return { status: 'success', message: 'Sub-category added', data: cat };
   }
 

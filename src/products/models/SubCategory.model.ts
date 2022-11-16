@@ -22,7 +22,7 @@ export class SubCategory extends Model {
   })
   id: string;
 
-  @Column({ allowNull: false })
+  @Column({ allowNull: false, unique: true})
   name: string;
 
   @BelongsToMany(() => Category, () => CategorySubCategory )
