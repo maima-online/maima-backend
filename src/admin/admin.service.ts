@@ -172,12 +172,12 @@ export class AdminService {
       );
     }
     const data = await this.brandModel.create(brand);
-    if (brand?.categories) {
-      await data.$add('categories', brand.categories);
-    }
-    if (brand?.subcategories) {
-      await data.$add('subCategories', brand.subcategories);
-    }
+    // if (brand?.categories) {
+    //   await data.$add('categories', brand.categories);
+    // }
+    // if (brand?.subcategories) {
+    //   await data.$add('subCategories', brand.subcategories);
+    // }
     return data;
   }
 

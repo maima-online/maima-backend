@@ -8,7 +8,7 @@ export class UpdateSubCategoryDto {
     @IsOptional()
     name: string;
 
-    @IsOptional()
-    @IsUUID()
-    categoryId: string;
+    // @IsOptional()
+    // @IsUUID()
+    // categoryId: string;
 }

@@ -11,9 +11,9 @@ export class updateBrandDto {
   logo: string;
 
   //   @IsNotEmpty()
-  @IsOptional()
-  categories: string | string[];
+  // @IsOptional()
+  // categories: string | string[];
 
-  @IsOptional()
-  subcategories: string | string[];
+  // @IsOptional()
+  // subcategories: string | string[];
 }
