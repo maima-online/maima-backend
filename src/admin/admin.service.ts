@@ -208,8 +208,10 @@ export class AdminService {
     const brand = await this.getBrandById(params);
     await brand.destroy();
     // process.cwd(), 'uploads', 'products'
-    const path = join(process.cwd(), 'uploads', 'brands', `${brand.logo}`);
-    await unlink(path);
+    if(brand?.logo){
+      const path = join(process.cwd(), 'uploads', 'brands', `${brand.logo}`);
+      await unlink(path);
+    }
     return { status: 'success', message: 'Condition deleted!' };
   }
 
