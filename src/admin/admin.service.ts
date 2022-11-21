@@ -127,8 +127,8 @@ export class AdminService {
       category.name &&
       findOne.name !== category.name &&
       (await this.subCategoryModel.findOne({ where: { 
-        // name: category.name 
-        [Op.and]: [{ name: category.name }, { categoryId: category.categoryId }]
+        name: category.name 
+        // [Op.and]: [{ name: category.name }, { categoryId: category.categoryId }]
       } }))
     ) {
       throw new HttpException(
