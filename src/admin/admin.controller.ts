@@ -32,7 +32,7 @@ import { CreateSubCategoryDto } from './dto/createSubCategory.dto';
 // import { 
 //   UpdateSubCategoryDto
 //  } from './dto/updateSubCategory.dto';
-import { UpdateSubCategoryDto } from './dto/updateSubCategory.dto';
+import { UpdateSubCategoryDto } from './dto/updateSubcategory.dto';
 import { CreateProductDto } from './dto/createProduct.dto';
 import { UpdateCategoryDto } from './dto/update-category.dto';
 import { CreateConditionDto } from './dto/createCondition.dto';
