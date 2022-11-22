@@ -13,9 +13,9 @@ import { Cart } from './accounts/models/Cart.model';
 import { ProductCondition } from './products/models/ProductCondition.model';
 import { Condition } from './products/models/Condition.model';
 import { Brand } from './products/models/Brand.model';
-import { BrandSubCategory } from './products/models/BrandSubCategory.model';
+// import { BrandSubCategory } from './products/models/BrandSubCategory.model';
 import { CategorySubCategory } from './products/models/CategorySubCategory.model';
-import { BrandCategory } from './products/models/BrandCategory.model';
+// import { BrandCategory } from './products/models/BrandCategory.model';
 
 @Module({
   imports: [
@@ -39,8 +39,8 @@ import { BrandCategory } from './products/models/BrandCategory.model';
         ProductCondition,
         Cart,
         Brand,
-        BrandSubCategory,
-        BrandCategory,
+        // BrandSubCategory,
+        // BrandCategory,
         CategorySubCategory
       ],
       autoLoadModels: true,

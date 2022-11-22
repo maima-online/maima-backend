@@ -6,10 +6,10 @@ import {
   Model,
   Table,
 } from 'sequelize-typescript';
-import { BrandSubCategory } from './BrandSubCategory.model';
+// import { BrandSubCategory } from './BrandSubCategory.model';
 import { SubCategory } from './SubCategory.model';
 import { Category } from './Category.model';
-import { BrandCategory } from './BrandCategory.model';
+// import { BrandCategory } from './BrandCategory.model';
 
 
 @Table({
@@ -29,9 +29,9 @@ export class Brand extends Model {
   @Column({ allowNull: false })
   logo: string;
 
-  @BelongsToMany(() => SubCategory, () => BrandSubCategory)
-  subCategories: SubCategory[];
+  // @BelongsToMany(() => SubCategory, () => BrandSubCategory)
+  // subCategories: SubCategory[];
 
-  @BelongsToMany(() => Category, () => BrandCategory)
-  Categories: Category[];
+  // @BelongsToMany(() => Category, () => BrandCategory)
+  // Categories: Category[];
 }
