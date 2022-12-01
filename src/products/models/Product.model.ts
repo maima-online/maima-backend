@@ -8,8 +8,10 @@ import {
 } from 'sequelize-typescript';
 import { Brand } from './Brand.model';
 import { SubCategory } from './SubCategory.model';
+import { Category } from './Category.model';
 import { Condition } from './Condition.model';
 import { ProductSubCategory } from './ProductSubCategory.model';
+import { ProductCategory } from './ProductCategory.model';
 import { ProductCondition } from './ProductCondition.model';
 
 @Table({
@@ -30,14 +32,11 @@ export class Product extends Model {
   @Column({ allowNull: false })
   price: number;
 
-  @Column({ defaultValue: 'ngn' })
-  currency: string;
-
   @Column({ allowNull: false })
-  quantityRemaining: number;
+  code: string;
 
-  @Column({ allowNull: false })
-  quantitySupplied: number;
+  @Column({ allowNull: false, defaultValue: 0  })
+  quantity: number;
 
   @Column({ defaultValue: 0 })
   discount: number;
@@ -53,9 +52,17 @@ export class Product extends Model {
   description: string;
 
   @Column({
+    type: DataType.ARRAY(DataType.STRING), allowNull: false, defaultValue: []
+  })
+  suggestions: string[];
+
+  @Column({
     type: DataType.ARRAY(DataType.STRING),
   })
   images: string[];
+
+  @BelongsToMany(() => Category, () => ProductCategory)
+  categories: Category[];
 
   @BelongsToMany(() => SubCategory, () => ProductSubCategory)
   subCategories: SubCategory[];

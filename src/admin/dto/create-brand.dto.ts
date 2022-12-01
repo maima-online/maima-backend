@@ -9,7 +9,7 @@ export class CreateBrandDto {
 
   @IsOptional()
   categories: string | string[];
-
+  
   @IsOptional()
   subcategories: string | string[];
 }

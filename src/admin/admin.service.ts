@@ -9,7 +9,9 @@ import { InjectModel } from '@nestjs/sequelize';
 import { Brand } from 'src/products/models/Brand.model';
 import { Category } from 'src/products/models/Category.model';
 import { SubCategory } from 'src/products/models/SubCategory.model';
-import { WhereOptions } from 'sequelize/types';
+import { ProductCondition } from 'src/products/models/ProductCondition.model';
+import { ProductCategory } from 'src/products/models/ProductCategory.model';
+import { ProductSubCategory } from 'src/products/models/ProductSubCategory.model';
 import { Product } from 'src/products/models/Product.model';
 import { Condition } from 'src/products/models/Condition.model';
 import { unlink } from 'node:fs/promises';
@@ -24,6 +26,9 @@ export class AdminService {
     @InjectModel(Product) private readonly productModel: typeof Product,
     @InjectModel(Brand) private readonly brandModel: typeof Brand,
     @InjectModel(Condition) private readonly conditionModel: typeof Condition,
+    @InjectModel(ProductCategory) private readonly productCategoryModel: typeof ProductCategory,
+    @InjectModel(ProductSubCategory) private readonly productSubCategoryModel: typeof ProductSubCategory,
+    @InjectModel(ProductCondition) private readonly productConditionModel: typeof ProductCondition,
   ) {}
 
 // Category
@@ -116,6 +121,7 @@ export class AdminService {
   }
     const cat = await this.createSubCategory(arr);
     for (const song of cat) {
+      console.log(category.categories, "cates");
       await song.$add('category', category.categories);
     }
     return { status: 'success', message: 'Sub-category added', data: cat };
@@ -231,7 +237,7 @@ export class AdminService {
   }
 
   async getProducts(): Promise<Product[]> {
-    return await this.productModel.findAll({ include: [Category, Brand] });
+    return await this.productModel.findAll();
   }
 
   async deleteCondition(params: string): Promise<any> {
@@ -265,7 +271,7 @@ export class AdminService {
 
   async addProduct(product): Promise<Product> {
     const findOne = await this.productModel.findOne({
-      where: { name: product.name },
+      where: { [Op.and]: [{ name: product.name}, { brandId: product.brandId }]}
     });
     if (findOne) {
       throw new HttpException(
@@ -276,14 +282,44 @@ export class AdminService {
         HttpStatus.FORBIDDEN,
       );
     }
-    const data = await this.productModel.create(product);
-    if (product.categories) {
-      data.$add('categories', product.categories);
+    const firstLatter = product?.name.charAt(0);
+    const cap = firstLatter.toUpperCase();
+    let num = 4;
+
+    const newdata = {
+      ...product,
+      // suggestions:  this.checkArrayDate(product?.suggestions) || [],
+      // categories: this.checkArrayDate(product.categories),
+      // subCategories: this.checkArrayDate(product.subCategories),
+      code: this.generateOTP(cap, num)
+    }
+    console.log(newdata)
+    const data = await this.productModel.create(newdata);
+    console.log(data, "data")
+   
+    if (product?.categories) {
+      if(Array.isArray(product?.categories)){
+        for (const prod of newdata?.categories) {
+          console.log(prod, "prod")
+          await data.$add('category',  prod);
+        }
+      } else
+      await data.$add('category',  product?.categories);
+    }
+    if (product?.subCategories) {
+      if(Array.isArray(product?.subCategories)){
+      for (const prod of newdata.subCategories) {
+        console.log(prod, "subprod")
+      await data.$add('subCategories', prod);
+      }
+    }else
+    await data.$add('subCategories', newdata.subCategories);
     }
     return data;
   }
 
-  async updateProduct(product): Promise<any> {
+  async updateProduct(product:any): Promise<any> {
+    console.log(product)
     const findOne = await this.productModel.findByPk(product?.id);
     if (!findOne) {
       throw new HttpException(
@@ -293,16 +329,59 @@ export class AdminService {
         },
         HttpStatus.NOT_FOUND,
       );
-    }
+    } 
+    // console.log(product, "updateProduct")
     // await this.conditionModel.update(condition, { where:{id: condition.id }});
-    const data = await this.productModel.update(product, {
-      where: { id: product.id },
+    await this.productSubCategoryModel.destroy({
+      where: {
+        productId: findOne.id
+      }
+    })
+    await this.productCategoryModel.destroy({
+      where: {
+        productId: findOne.id
+      }
+    })
+    const newdata = {
+      ...product,
+      // suggestions: this.checkArrayDate(product?.suggestions),
+      // categories: this.checkArrayDate(product.categories),
+      // subCategories: this.checkArrayDate(product.subCategories),
+      code: findOne?.code || "A0000"
+    }
+    console.log(newdata)
+    const data = await this.productModel.update(newdata, {
+      where: { id: newdata.id },
     });
-    // if (product.categories) {
-    //   data.$add('categories', product.categories);
+
+    // console.log(data instanceof this.productConditionModel);
+    // if (product?.categories) {
+    //   findOne.$add('categories', product.categories);
     // }
-    console.log(data);
-    // return data;
+    // if (product?.subCategories) {
+    //   findOne.$add('subCategories', product.subCategories);
+    // }
+    // console.log(data);
+    if (product?.categories) {
+      if(Array.isArray(product?.categories)){
+        for (const prod of newdata?.categories) {
+          console.log(prod, "prod")
+          await findOne.$add('category',  prod);
+        }
+      } else
+      await findOne.$add('category',  product?.categories);
+    }
+    if (product?.subCategories) {
+      if(Array.isArray(product?.subCategories)){
+      for (const prod of newdata.subCategories) {
+        console.log(prod, "subprod")
+      await findOne.$add('subCategories', prod);
+      }
+    }else
+    await findOne.$add('subCategories', newdata.subCategories);
+    }
+
+    return data;
   }
 
   async addCondition(condition): Promise<any> {
@@ -411,6 +490,25 @@ export class AdminService {
 
     return condition;
   }
+// generate otp token
+generateOTP(a: string, num: number){
+  const optLength = num;
+  let otp = '';
+  for (let i = 0; i < optLength; i++){
+    otp += Math.floor(Math.random() * 9)
+  }
+  return a+otp
+  // console.log(otp, "oufldjkhssfipkl;jbnpdiklsjfkbln");
+}
+checkArrayDate = (arr: any)=>{
+  if(!Array.isArray(arr)){
+   if(!arr){
+    arr = [];
+   }
+   arr = [arr];
+  }
+  return arr;
+}
 
   async getFile(params): Promise<any> {
     const arr = ['brands', 'products', 'conditions'];

@@ -174,8 +174,8 @@ export class AdminController {
     if (files) body.images = files.map((file) => file.filename);
   
     try {
-      const product = await this.adminService.updateProduct(body);
-      return { status: 'success', message: 'Product updated', data: product };
+      await this.adminService.updateProduct(body);
+      return { status: 'success', message: 'Product updated' };
     } catch (error) {
       throw error
      

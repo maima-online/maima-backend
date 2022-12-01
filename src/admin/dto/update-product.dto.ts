@@ -13,24 +13,19 @@ import {
   } from 'class-validator';
   
   export class UpdateProductDto {
-
     @IsNotEmpty()
     @IsUUID()
     id: string;
-
-    @IsOptional()
+    
+    @IsNotEmpty()
+    @MinLength(3)
+    name: string;
+  
     @IsNumberString()
     price: number;
   
-    currency: string;
-
-    @IsOptional()
     @IsNumberString()
-    quantityRemaining: number;
-  
-    @IsOptional()
-    @IsNumberString()
-    quantitySupplied: number;
+    quantity: number;
   
     @IsOptional()
     @IsNumberString()
@@ -40,27 +35,74 @@ import {
     @IsDateString() 
     expDate: Date;
   
-    @IsOptional()
+    @IsNotEmpty()
     description: string;
-  
-    @IsOptional()
-    @IsIn(['medicine', 'vitamin'])
-    type: string;
     
     @IsOptional()
     packagingType: string;
   
     @IsOptional()
-    code: string;
-  
-    @IsOptional()
     categories: string | string[];
   
     @IsOptional()
-    @IsUUID()
+    subCategories: string | string[];
+  
+    @IsOptional()
+    suggestions: string[];
+  
+    @IsNotEmpty()
     brandId: string;
-
+  
     @IsOptional()
     images: string | string[];
   }
   
+
+  // @IsNotEmpty()
+  // @IsUUID()
+  // id: string;
+
+  // @IsOptional()
+  // @IsNumberString()
+  // price: number;
+
+  // currency: string;
+
+  // @IsOptional()
+  // @IsNumberString()
+  // quantityRemaining: number;
+
+  // @IsOptional()
+  // @IsNumberString()
+  // quantitySupplied: number;
+
+  // @IsOptional()
+  // @IsNumberString()
+  // discount: number | null;
+
+  // @IsOptional()
+  // @IsDateString() 
+  // expDate: Date;
+
+  // @IsOptional()
+  // description: string;
+
+  // @IsOptional()
+  // @IsIn(['medicine', 'vitamin'])
+  // type: string;
+  
+  // @IsOptional()
+  // packagingType: string;
+
+  // @IsOptional()
+  // code: string;
+
+  // @IsOptional()
+  // categories: string | string[];
+
+  // @IsOptional()
+  // @IsUUID()
+  // brandId: string;
+
+  // @IsOptional()
+  // images: string | string[];

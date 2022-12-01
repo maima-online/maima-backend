@@ -9,6 +9,7 @@ import { Product } from './products/models/Product.model';
 import { Category } from './products/models/Category.model';
 import { SubCategory } from './products/models/SubCategory.model';
 import { ProductSubCategory } from './products/models/ProductSubCategory.model';
+import { ProductCategory } from './products/models/ProductCategory.model';
 import { Cart } from './accounts/models/Cart.model';
 import { ProductCondition } from './products/models/ProductCondition.model';
 import { Condition } from './products/models/Condition.model';
@@ -34,6 +35,7 @@ import { CategorySubCategory } from './products/models/CategorySubCategory.model
         Product,
         Category,
         SubCategory,
+        ProductCategory,
         ProductSubCategory,
         Condition,
         ProductCondition,

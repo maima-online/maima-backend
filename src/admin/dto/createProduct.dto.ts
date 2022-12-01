@@ -22,13 +22,8 @@ export class CreateProductDto {
   @IsNumberString()
   price: number;
 
-  currency: string;
-
   @IsNumberString()
-  quantityRemaining: number;
-
-  @IsNumberString()
-  quantitySupplied: number;
+  quantity: number;
 
   @IsOptional()
   @IsNumberString()
@@ -40,21 +35,23 @@ export class CreateProductDto {
 
   @IsNotEmpty()
   description: string;
-
-  @IsIn(['medicine', 'vitamin'])
-  type: string;
   
   @IsOptional()
   packagingType: string;
 
   @IsOptional()
-  code: string;
+  categories: string | string[];
 
   @IsOptional()
-  categories: string | string[];
+  subCategories: string | string[];
+
+  @IsOptional()
+  @IsArray()
+  suggestions: string[];
 
   @IsNotEmpty()
   brandId: string;
 
+  @IsOptional()
   images: string | string[];
 }

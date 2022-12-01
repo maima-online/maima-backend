@@ -26,7 +26,6 @@ export class Condition extends Model {
   @Column({ allowNull: false })
   logo: string;
 
-
   @BelongsToMany(() => Product, () => ProductCondition)
   categories: Product[];
 }
