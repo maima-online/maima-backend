@@ -49,6 +49,10 @@ export class CreateProductDto {
   @IsArray()
   suggestions: string[];
 
+  @IsOptional()
+  // @IsArray()
+  conditions: string | string[];
+
   @IsNotEmpty()
   brandId: string;
 

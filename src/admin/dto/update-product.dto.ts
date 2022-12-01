@@ -48,6 +48,9 @@ import {
     subCategories: string | string[];
   
     @IsOptional()
+    conditions: string | string[];
+
+    @IsOptional()
     suggestions: string[];
   
     @IsNotEmpty()

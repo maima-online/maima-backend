@@ -306,6 +306,17 @@ export class AdminService {
       } else
       await data.$add('category',  product?.categories);
     }
+
+    if (product?.conditions) {
+      if(Array.isArray(product?.conditions)){
+        for (const prod of newdata?.conditions) {
+          console.log(prod, "prod")
+          await data.$add('condition',  prod);
+        }
+      } else
+      await data.$add('condition',  product?.conditions);
+    }
+
     if (product?.subCategories) {
       if(Array.isArray(product?.subCategories)){
       for (const prod of newdata.subCategories) {
@@ -342,6 +353,11 @@ export class AdminService {
         productId: findOne.id
       }
     })
+    await this.productConditionModel.destroy({
+      where: {
+        productId: findOne.id
+      }
+    })
     const newdata = {
       ...product,
       // suggestions: this.checkArrayDate(product?.suggestions),
@@ -370,6 +386,15 @@ export class AdminService {
         }
       } else
       await findOne.$add('category',  product?.categories);
+    }
+    if (product?.conditions) {
+      if(Array.isArray(product?.conditions)){
+        for (const prod of newdata?.conditions) {
+          console.log(prod, "prod")
+          await findOne.$add('condition',  prod);
+        }
+      } else
+      await findOne.$add('condition',  product?.conditions);
     }
     if (product?.subCategories) {
       if(Array.isArray(product?.subCategories)){
