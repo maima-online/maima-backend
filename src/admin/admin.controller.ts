@@ -119,7 +119,7 @@ export class AdminController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Post('product')
   @UseInterceptors(
-    FilesInterceptor('images', 6, {
+    FileInterceptor('image', {
       storage: diskStorage({
         destination: join(process.cwd(), 'uploads', 'products'),
         filename: (req, file, cb) => {
@@ -136,7 +136,7 @@ export class AdminController {
   )
   async addProduct(
     @Body() body: CreateProductDto,
-    @UploadedFile() file: Express.Multer.File,
+  @UploadedFile() file: Express.Multer.File,
   ) {
     if (file) {
       const { buffer, ...rest } = file;
@@ -155,7 +155,7 @@ export class AdminController {
   @UseGuards(JwtAuthGuard, RolesGuard)
   @Put('product')
   @UseInterceptors(
-    FilesInterceptor('images', 6, {
+    FileInterceptor('image', {
       storage: diskStorage({
         destination: join(process.cwd(), 'uploads', 'products'),
         filename: (req, file, cb) => {
