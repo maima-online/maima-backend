@@ -46,7 +46,7 @@ export class CreateProductDto {
 
   @IsOptional()
   // @IsUUID()
-  @IsUUID(undefined, {each:true})
+  // @IsUUID(undefined, {each:true})
   subCategories: string | string[];
 
   @IsOptional()
