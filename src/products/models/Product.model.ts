@@ -56,10 +56,8 @@ export class Product extends Model {
   })
   suggestions: string[];
 
-  @Column({
-    type: DataType.ARRAY(DataType.STRING),
-  })
-  images: string[];
+  @Column({ allowNull: false })
+  image: string;
 
   @BelongsToMany(() => Category, () => ProductCategory)
   categories: Category[];

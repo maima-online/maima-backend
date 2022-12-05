@@ -136,9 +136,12 @@ export class AdminController {
   )
   async addProduct(
     @Body() body: CreateProductDto,
-    @UploadedFiles() files: Array<Express.Multer.File>,
+    @UploadedFile() file: Express.Multer.File,
   ) {
-    if (files) body.images = files.map((file) => file.filename);
+    if (file) {
+      const { buffer, ...rest } = file;
+      body.image = rest.filename;
+    }
     try {
       const product = await this.adminService.addProduct(body);
       return { status: 'success', message: 'Product added', data: product };
@@ -169,9 +172,12 @@ export class AdminController {
   )
   async updateProduct(
     @Body() body: UpdateProductDto,
-    @UploadedFiles() files: Array<Express.Multer.File>,
+    @UploadedFile() file: Express.Multer.File,
   ) {
-    if (files) body.images = files.map((file) => file.filename);
+   if (file) {
+      const { buffer, ...rest } = file;
+      body.image = rest.filename;
+    }
   
     try {
       await this.adminService.updateProduct(body);

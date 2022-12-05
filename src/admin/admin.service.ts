@@ -257,15 +257,15 @@ export class AdminService {
     const product = await this.getProductById(params);
     await product.destroy();
     // process.cwd(), 'uploads', 'products'
-    if(Array.isArray(product.images) && product.images.length > 0) {
-      product.images.forEach( async image =>{
-        const path = join(process.cwd(), 'uploads', 'product', `${image}`);
-        await unlink(path);
-      } )
-    }else{
-      const path = join(process.cwd(), 'uploads', 'product', `${product.images}`);
+    // if(Array.isArray(product.images) && product.images.length > 0) {
+    //   product.images.forEach( async image =>{
+    //     const path = join(process.cwd(), 'uploads', 'product', `${image}`);
+    //     await unlink(path);
+    //   } )
+    // }else{
+      const path = join(process.cwd(), 'uploads', 'product', `${product.image}`);
       await unlink(path);
-    }
+    // }
     return { status: 'success', message: 'Condition deleted!' };
   }
 

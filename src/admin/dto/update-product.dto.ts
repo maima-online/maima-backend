@@ -57,7 +57,7 @@ import {
     brandId: string;
   
     @IsOptional()
-    images: string | string[];
+    image: string;
   }
   
 
