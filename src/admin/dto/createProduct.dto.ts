@@ -9,6 +9,7 @@ import {
   MinDate,
   IsISO8601,
   MinLength,
+  IsUUID
 } from 'class-validator';
 
 const today = new Date()
@@ -43,17 +44,21 @@ export class CreateProductDto {
   categories: string | string[];
 
   @IsOptional()
+  @IsUUID()
   subCategories: string | string[];
 
   @IsOptional()
   @IsArray()
+  @IsUUID()
   suggestions: string[];
 
   @IsOptional()
   // @IsArray()
+  @IsUUID()
   conditions: string | string[];
 
   @IsNotEmpty()
+  @IsUUID()
   brandId: string;
 
   @IsOptional()
