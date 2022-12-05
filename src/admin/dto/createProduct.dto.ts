@@ -41,24 +41,29 @@ export class CreateProductDto {
   packagingType: string;
 
   @IsOptional()
+  @IsUUID(undefined, {each:true})
   categories: string | string[];
 
   @IsOptional()
-  @IsUUID()
+  // @IsUUID()
+  @IsUUID(undefined, {each:true})
   subCategories: string | string[];
 
   @IsOptional()
   @IsArray()
-  @IsUUID()
+  // @IsUUID()
+  @IsUUID(undefined, {each:true})
   suggestions: string[];
 
   @IsOptional()
   // @IsArray()
-  @IsUUID()
+  // @IsUUID()
+  @IsUUID(undefined, {each:true})
   conditions: string | string[];
 
   @IsNotEmpty()
-  @IsUUID()
+  // @IsUUID()
+  @IsUUID(undefined, {each:true})
   brandId: string;
 
   @IsOptional()
