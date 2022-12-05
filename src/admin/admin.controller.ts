@@ -273,7 +273,7 @@ export class AdminController {
     }
   }
 
-  @Get('product')
+  @Get('products')
   async getProducts() {
     try {
       const products = await this.adminService.getProducts();
